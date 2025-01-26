@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quizme/core/navigation/app_routes.dart';
 import 'package:flutter_quizme/core/navigation/route_names.dart';
 import 'package:flutter_quizme/core/utils/app_constants.dart';
+import 'package:flutter_quizme/core/utils/sound_utility.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -25,18 +26,23 @@ class ResultScreen extends StatelessWidget {
     if (percentage >= 80) {
       resultMessage = "Excellent Job! 🎉";
       lottieAnimation = AppConstants.success;
+      QuizSoundUtility.playSound(AppConstants.highSound);
     } else if (percentage >= 50) {
       resultMessage = "Good Effort! 👍";
       lottieAnimation = AppConstants.goodEffort;
+      QuizSoundUtility.playSound(AppConstants.midSound);
     } else {
       resultMessage = "Keep Practicing! 💪";
       lottieAnimation = AppConstants.tryAgain;
+      QuizSoundUtility.playSound(AppConstants.lowSound);
     }
+
 
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.padding),
+          padding:
+              const EdgeInsets.symmetric(horizontal: AppDimensions.padding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

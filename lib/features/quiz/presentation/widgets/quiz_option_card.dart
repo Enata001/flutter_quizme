@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quizme/core/utils/app_colors.dart';
+import 'package:flutter_quizme/core/utils/app_constants.dart';
+
+import '../../../../core/utils/sound_utility.dart';
 
 class QuizOptionCard extends StatefulWidget {
   final String optionText;
@@ -32,12 +35,18 @@ class _QuizOptionCardState extends State<QuizOptionCard> {
     }
   }
 
-  void _handleTap() {
+  void _handleTap() async{
     setState(() {
       _isSelected = true;
     });
 
-    Future.delayed(const Duration(seconds: 2), () {
+    if (widget.isCorrect) {
+      await QuizSoundUtility.playSound(AppConstants.correctSound);
+    } else {
+      await QuizSoundUtility.playSound(AppConstants.wrongSound);
+    }
+
+    Future.delayed(const Duration(milliseconds:1200 ), () {
       widget.onTap();
     });
   }

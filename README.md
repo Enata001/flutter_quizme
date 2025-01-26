@@ -15,6 +15,7 @@ Flutter QuizMe is a gamified quiz application built with Flutter, offering an in
 ### Gamification
 - **Feedback Animations**: Visual effects based on the user’s score to enhance interactivity.
 - **Motivational Messaging**: Personalized messages after quiz completion to boost engagement.
+- **Audio Feedback**: Audio effects based on the user’s input to enhance interactivity
 
 ### Design and UI
 - **Responsive Design**: Optimized for various screen sizes and orientations.

@@ -21,19 +21,6 @@ class QuizProvider with ChangeNotifier {
 
   int get totalQuestions => _totalQuestions;
 
-  // Future<void> loadQuiz() async {
-  //   try {
-  //     _quiz = await _quizRepository.fetchQuiz();
-  //     _questions = _quiz!.questions;
-  //     _totalQuestions = _questions.length;
-  //     _currentQuestionIndex = 0;
-  //     _score = 0;
-  //     notifyListeners();
-  //   } catch (e) {
-  //     throw Exception('Failed to load quiz: $e');
-  //   }
-  // }
-
   void answerQuestion(bool isCorrect) {
     if (isCorrect) {
       _score++;
@@ -68,19 +55,13 @@ class QuizProvider with ChangeNotifier {
       _hasInternet = true;
       _errorMessage = null;
 
-      // Add print statements or logging here
-      print('Attempting to fetch quiz');
 
       _quiz = await _quizRepository.fetchQuiz().timeout(
         const Duration(seconds: 10),
         onTimeout: () {
-          print('Quiz loading timed out');
           throw TimeoutException("Loading quiz timed out. Please try again.");
         },
       );
-
-      // Add print statement to verify quiz is loaded
-      print('Quiz loaded: ${_quiz?.questions.length} questions');
 
       _questions = _quiz!.questions;
       _totalQuestions = _questions.length;
@@ -88,8 +69,7 @@ class QuizProvider with ChangeNotifier {
       _score = 0;
       notifyListeners();
     } catch (e) {
-      // More detailed error logging
-      print('Error loading quiz: $e');
+
       _hasInternet = false;
       _errorMessage = "Failed to load quiz: ${e.toString()}";
       notifyListeners();
